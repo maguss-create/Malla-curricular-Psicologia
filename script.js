@@ -51,8 +51,8 @@ const data = [
   {
     nombre: "5° Semestre",
     ramos: [
-      "Psicopatología infanto-juvenil",
-      "Psicopatología adultos",
+      "Psicopatología de la infancia y adolescencia",
+      "Psicopatología de adultos",
       "Neuropsicología",
       "Clínica II",
       "Idioma",
@@ -105,7 +105,7 @@ const malla = document.getElementById("malla");
 let totalRamos = data.reduce((acc, s) => acc + s.ramos.length, 0);
 let aprobados = 0;
 
-data.forEach((semestre, i) => {
+data.forEach((semestre, index) => {
   const cont = document.createElement("div");
   cont.className = "semestre";
 
@@ -116,20 +116,20 @@ data.forEach((semestre, i) => {
   const grid = document.createElement("div");
   grid.className = "grid";
 
-  semestre.ramos.forEach(() => {
+  semestre.ramos.forEach(ramoNombre => {
     const ramo = document.createElement("div");
-    ramo.className = "ramo" + (i > 0 ? " bloqueado" : "");
-    ramo.textContent = arguments[0];
+    ramo.className = "ramo" + (index > 0 ? " bloqueado" : "");
+    ramo.textContent = ramoNombre;
 
-    ramo.onclick = () => {
+    ramo.addEventListener("click", () => {
       if (ramo.classList.contains("bloqueado")) return;
       if (ramo.classList.contains("aprobado")) return;
 
       ramo.classList.add("aprobado");
       aprobados++;
       actualizarProgreso();
-      desbloquear(i);
-    };
+      desbloquear(index);
+    });
 
     grid.appendChild(ramo);
   });
@@ -139,14 +139,17 @@ data.forEach((semestre, i) => {
 });
 
 function desbloquear(index) {
-  const semestreActual = document.querySelectorAll(".semestre")[index];
-  const ramos = semestreActual.querySelectorAll(".ramo");
-  const todosAprobados = [...ramos].every(r => r.classList.contains("aprobado"));
+  const semestres = document.querySelectorAll(".semestre");
+  const ramos = semestres[index].querySelectorAll(".ramo");
 
-  if (todosAprobados) {
-    const siguiente = document.querySelectorAll(".semestre")[index + 1];
-    if (!siguiente) return;
-    siguiente.querySelectorAll(".ramo").forEach(r => r.classList.remove("bloqueado"));
+  const todosAprobados = [...ramos].every(r =>
+    r.classList.contains("aprobado")
+  );
+
+  if (todosAprobados && semestres[index + 1]) {
+    semestres[index + 1]
+      .querySelectorAll(".ramo")
+      .forEach(r => r.classList.remove("bloqueado"));
   }
 }
 
