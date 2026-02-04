@@ -1,0 +1,72 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f6f0ff;
+  color: #3b1d5f;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.progress-container {
+  width: 80%;
+  margin: 0 auto 30px;
+  background: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 30px;
+  width: 0%;
+  background: linear-gradient(90deg, #c084fc, #a855f7);
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-weight: bold;
+  transition: width 0.3s;
+}
+
+.semestre {
+  margin-bottom: 30px;
+}
+
+.semestre h2 {
+  margin-bottom: 10px;
+  color: #6b21a8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 15px;
+}
+
+.ramo {
+  padding: 15px;
+  background: #e9d5ff;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.ramo:hover {
+  transform: scale(1.03);
+}
+
+.ramo.aprobado {
+  background: #a855f7;
+  color: white;
+  text-decoration: line-through;
+}
+
+.ramo.bloqueado {
+  background: #d8b4fe;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
